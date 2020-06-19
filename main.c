@@ -10,4 +10,5 @@ int main()
 	{
 		printf("%s\n", line);
 	}
+	printf("%s\n", line);
 }

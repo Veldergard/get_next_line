@@ -6,7 +6,7 @@
 /*   By: olaurine <olaurine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/14 04:05:24 by olaurine          #+#    #+#             */
-/*   Updated: 2020/06/19 19:40:18 by olaurine         ###   ########.fr       */
+/*   Updated: 2020/06/19 21:19:16 by olaurine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ char			*ft_strjoin(char const *s1, char const *s2)
 	size_t	i;
 	char	*s;
 
-	if (!s1 || !s2)
-		return (NULL);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	len_sum = len1 + len2;
