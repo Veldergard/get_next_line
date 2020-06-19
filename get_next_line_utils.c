@@ -6,13 +6,13 @@
 /*   By: olaurine <olaurine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/14 04:05:24 by olaurine          #+#    #+#             */
-/*   Updated: 2020/06/17 17:36:20 by olaurine         ###   ########.fr       */
+/*   Updated: 2020/06/19 19:40:18 by olaurine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+static size_t	ft_strlen(const char *s)
 {
 	size_t len;
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char			*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	len1;
 	size_t	len2;
@@ -49,31 +49,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (s);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char		*substr;
-	size_t		i;
-	size_t		strlen;
-
-	strlen = s ? ft_strlen(s) : 0;
-	if (strlen < start)
-		len = 0;
-	if (len > strlen - start)
-		len = strlen - start;
-	if (!(substr = (char*)malloc(sizeof(*substr) * (len + 1))))
-		return (NULL);
-	i = 0;
-	s += start;
-	while (i < len)
-	{
-		substr[i] = s[i];
-		i++;
-	}
-	substr[i] = '\0';
-	return (substr);
-}
-
-char	*ft_strdup(const char *s)
+char			*ft_strdup(const char *s)
 {
 	size_t		i;
 	char		*result;
@@ -94,7 +70,7 @@ char	*ft_strdup(const char *s)
 	return (result);
 }
 
-char	*ft_strchr(const char *s, int c)
+char			*ft_strchr(const char *s, int c)
 {
 	size_t	i;
 

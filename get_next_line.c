@@ -6,66 +6,67 @@
 /*   By: olaurine <olaurine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/14 04:05:18 by olaurine          #+#    #+#             */
-/*   Updated: 2020/06/17 20:21:43 by olaurine         ###   ########.fr       */
+/*   Updated: 2020/06/19 20:22:04 by olaurine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		get_line(char **line, char **s)
+int		get_line(char **p_n, char **line, char **remainder)
 {
 	char		*temp;
-	int			len;
 
-	len = 0;
-	while ((*s)[len] && (*s)[len] != '\n')
-		len++;
-	if ((*s)[len] == '\n')
+	*p_n = *p_n ? *p_n : ft_strchr(*remainder, '\0');
+	if (**p_n == '\n')
 	{
-		free(*line);
-		*line = ft_substr((*s), 0, len);
-		temp = ft_strdup((*s) + len + 1);
-		free(*s);
-		*s = temp;
-		if (*s[0] == '\0')
-			free(*s);
-
+		**p_n = 0;
+		*line = ft_strdup(*remainder);
+		temp = *remainder;
+		*remainder = ft_strdup(*p_n + 1);
+		free(temp);
+		if (*remainder[0] == 0)
+		{
+			free(*remainder);
+			*remainder = NULL;
+		}
 	}
-	else if ((*s)[len] == '\0')
+	else if (**p_n == 0)
 	{
-		free(*line);
-		*line = ft_strdup(*s);
-		free(*s);
+		*line = *remainder;
+		remainder = NULL;
+		return (0);
 	}
 	return (1);
 }
 
 int		get_next_line(int fd, char **line)
 {
-	static char	*s;
-	char		*temp;
-	char		buf[BUFFER_SIZE + 1];
-	int			r;
+	static char		*remainder;
+	char			*temp;
+	char			buf[BUFFER_SIZE + 1];
+	int				readed;
+	char			*p_n;
 
-	if (fd < 0 || !line)
+	if (fd < 0 || !line || BUFFER_SIZE < 1)
 		return (-1);
-	while ((!s || !ft_strchr(s, '\n')) && (r = read(fd, buf, BUFFER_SIZE)) > 0)
+	p_n = remainder ? ft_strchr(remainder, '\n') : NULL;
+	while (!p_n && (readed = read(fd, buf, BUFFER_SIZE)))
 	{
-		buf[r] = '\0';
-		if (!s)
-			s = ft_strdup(buf);
+		buf[readed] = 0;
+		if (!remainder)
+			remainder = ft_strdup(buf);
 		else
 		{
-			temp = ft_strjoin(s, buf);
-			free(s);
-			s = temp;
+			temp = remainder;
+			remainder = ft_strjoin(remainder, buf);
+			free(temp);
 		}
-		if (ft_strchr(buf, '\n'))
-			break ;
+		if ((p_n = ft_strchr(remainder, '\n')))
+			break;
 	}
-	if (r < 0 && (!s || s[0] == '\0'))
+	if (readed < 0 && (!remainder || remainder[0] == 0))
 		return (-1);
-	else if (r == 0 && (!s || s[0] == '\0'))
-		return (0);
-	return (get_line(line, &s));
+	else if (readed == 0 && (!remainder || remainder[0] == 0))
+		return(0);
+	return (get_line(&p_n, line, &remainder));
 }

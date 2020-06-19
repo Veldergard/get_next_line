@@ -6,7 +6,7 @@
 /*   By: olaurine <olaurine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/14 17:31:23 by olaurine          #+#    #+#             */
-/*   Updated: 2020/06/16 22:19:32 by olaurine         ###   ########.fr       */
+/*   Updated: 2020/06/19 19:39:21 by olaurine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,8 @@
 # endif
 
 int		get_next_line(int fd, char **line);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strdup(const char *s);
+char	*ft_strchr(const char *s, int c);
 
 #endif
