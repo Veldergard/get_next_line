@@ -6,7 +6,7 @@
 /*   By: olaurine <olaurine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/14 17:31:23 by olaurine          #+#    #+#             */
-/*   Updated: 2020/06/19 20:47:20 by olaurine         ###   ########.fr       */
+/*   Updated: 2020/06/19 22:26:04 by olaurine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 128
 # endif
+
+// # if BUFFER_SIZE < 1
+// #  error "You can't use BUFFER_SIZE < 1"
+// # endif
 
 int		get_next_line(int fd, char **line);
 char	*ft_strjoin(char const *s1, char const *s2);
