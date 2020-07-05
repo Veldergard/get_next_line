@@ -6,13 +6,13 @@
 /*   By: olaurine <olaurine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 20:42:29 by olaurine          #+#    #+#             */
-/*   Updated: 2020/07/05 22:14:10 by olaurine         ###   ########.fr       */
+/*   Updated: 2020/07/05 22:24:03 by olaurine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-int		get_line2(char **line, char **remainder)
+int		separate_line_with_endline(char **line, char **remainder)
 {
 	*line = ft_strdup(*remainder);
 	free(*remainder);
@@ -22,7 +22,7 @@ int		get_line2(char **line, char **remainder)
 	return (0);
 }
 
-int		get_line(char **p_n, char **line, char **remainder)
+int		separate_line(char **p_n, char **line, char **remainder)
 {
 	char		*temp;
 
@@ -43,10 +43,10 @@ int		get_line(char **p_n, char **line, char **remainder)
 		free(temp);
 		return (1);
 	}
-	return (get_line2(line, remainder));
+	return (separate_line_with_endline(line, remainder));
 }
 
-int		get_next_line2(char **p_n, char **line, char **remainder, int readed)
+int		check_read(char **p_n, char **line, char **remainder, int readed)
 {
 	if (readed < 0 && (!(*remainder) || (*remainder)[0] == 0))
 		return (-1);
@@ -56,7 +56,7 @@ int		get_next_line2(char **p_n, char **line, char **remainder, int readed)
 			return (-1);
 		return (0);
 	}
-	return (get_line(p_n, line, remainder));
+	return (separate_line(p_n, line, remainder));
 }
 
 int		get_next_line(int fd, char **line)
@@ -85,5 +85,5 @@ int		get_next_line(int fd, char **line)
 		if ((p_n = ft_strchr(remainder[fd], '\n')))
 			break;
 	}
-	return (get_next_line2(&p_n, line, &(remainder[fd]), readed));
+	return (check_read(&p_n, line, &(remainder[fd]), readed));
 }
