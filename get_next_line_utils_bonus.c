@@ -6,11 +6,11 @@
 /*   By: olaurine <olaurine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 20:42:19 by olaurine          #+#    #+#             */
-/*   Updated: 2020/07/02 20:42:43 by olaurine         ###   ########.fr       */
+/*   Updated: 2020/07/05 21:07:23 by olaurine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static size_t	ft_strlen(const char *s)
 {

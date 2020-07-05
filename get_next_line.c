@@ -6,7 +6,7 @@
 /*   By: olaurine <olaurine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/14 04:05:18 by olaurine          #+#    #+#             */
-/*   Updated: 2020/07/01 17:06:46 by olaurine         ###   ########.fr       */
+/*   Updated: 2020/07/05 21:52:32 by olaurine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		get_line(char **p_n, char **line, char **remainder)
 			return (-1);
 		}
 		temp = *remainder;
-		if (((*p_n)[1] != '\0' && !(*remainder = ft_strdup(*p_n + 1)))
+		if (((*p_n)[1] != '\0' && !((*remainder) = ft_strdup(*p_n + 1)))
 			|| (*p_n)[1] == '\0')
 			*remainder = NULL;
 		free(temp);
@@ -71,17 +71,16 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	p_n = remainder ? ft_strchr(remainder, '\n') : NULL;
 	readed = 0;
-	while (!p_n && (readed = read(fd, buf, BUFFER_SIZE)) > 0)
+	while (!p_n && (readed = read(fd, buf, BUFFER_SIZE)) > 1)
 	{
 		buf[readed] = '\0';
-		if (!remainder || (!(remainder = ft_strdup(""))))
+		if (!remainder && (!(remainder = ft_strdup(""))))
 			return (-1);
 		temp = remainder;
-		if (!(remainder = ft_strjoin(remainder, buf)))
-			free(temp);
-			remainder = NULL;
-			return (-1);
+		remainder = ft_strjoin(remainder, buf);
 		free(temp);
+		if (!remainder && (remainder = NULL))
+			return (-1);
 		if ((p_n = ft_strchr(remainder, '\n')))
 			break;
 	}

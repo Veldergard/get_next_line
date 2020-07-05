@@ -6,11 +6,11 @@
 /*   By: olaurine <olaurine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 20:42:29 by olaurine          #+#    #+#             */
-/*   Updated: 2020/07/03 04:22:38 by olaurine         ###   ########.fr       */
+/*   Updated: 2020/07/05 21:15:32 by olaurine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int		get_line2(char **line, char **remainder)
 {
@@ -69,21 +69,23 @@ int		get_next_line(int fd, char **line)
 
 	if (fd < 0 || !line || BUFFER_SIZE < 1)
 		return (-1);
-	p_n = remainder[fd] ? ft_strchr(remainder, '\n') : NULL;
+	p_n = remainder[fd] ? ft_strchr(remainder[fd], '\n') : NULL;
 	readed = 0;
 	while (!p_n && (readed = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
 		buf[readed] = '\0';
-		if (!remainder[fd] || (!(remainder[fd] = ft_strdup(""))))
+		if (!remainder[fd] && (!(remainder[fd] = ft_strdup(""))))
 			return (-1);
-		temp = remainder;
+		temp = remainder[fd];
 		if (!(remainder[fd] = ft_strjoin(remainder[fd], buf)))
+		{
 			free(temp);
 			remainder[fd] = NULL;
 			return (-1);
+		}
 		free(temp);
 		if ((p_n = ft_strchr(remainder[fd], '\n')))
 			break;
 	}
-	return (get_next_line2(&p_n, line, remainder[fd], readed));
+	return (get_next_line2(&p_n, line, &(remainder[fd]), readed));
 }
