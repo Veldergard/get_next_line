@@ -6,7 +6,7 @@
 /*   By: olaurine <olaurine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/14 04:05:18 by olaurine          #+#    #+#             */
-/*   Updated: 2020/07/05 21:52:32 by olaurine         ###   ########.fr       */
+/*   Updated: 2020/07/05 22:05:07 by olaurine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	p_n = remainder ? ft_strchr(remainder, '\n') : NULL;
 	readed = 0;
-	while (!p_n && (readed = read(fd, buf, BUFFER_SIZE)) > 1)
+	while (!p_n && (readed = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
 		buf[readed] = '\0';
 		if (!remainder && (!(remainder = ft_strdup(""))))
@@ -79,7 +79,7 @@ int		get_next_line(int fd, char **line)
 		temp = remainder;
 		remainder = ft_strjoin(remainder, buf);
 		free(temp);
-		if (!remainder && (remainder = NULL))
+		if (!remainder && !(remainder = NULL))
 			return (-1);
 		if ((p_n = ft_strchr(remainder, '\n')))
 			break;
